@@ -1,0 +1,38 @@
+.container{
+  text-align: center;
+  width: 325px;
+  margin-top: 15%;
+}
+
+.btn-primary{
+  width: 300px;
+}
+
+body{
+  background-color: #f6f2f7;
+}
+
+.input-form{
+  text-align: center;
+}
+
+h3{
+  margin-top: 5%;
+}
+h6{
+  margin-top: 15%;
+  color: #79797d;
+}
+
+.form-control{
+  /* width: 90%; */
+}
+
+.btn-primary{
+  margin-top: 10px;
+}
+
+.logo{
+  width: 150px;
+  margin: auto;
+}
