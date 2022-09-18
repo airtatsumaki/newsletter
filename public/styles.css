@@ -37,3 +37,15 @@ h6{
   width: 150px;
   margin: auto;
 }
+
+.top{
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.middle{
+  border-radius: 0;
+}
+.bottom{
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}

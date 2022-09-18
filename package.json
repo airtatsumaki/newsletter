@@ -4,7 +4,9 @@
   "description": "newsletter app with mailchimp",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js",
+    "dev": "npx nodemon app.js"
   },
   "repository": {
     "type": "git",
@@ -19,6 +21,6 @@
   "dependencies": {
     "body-parser": "^1.20.0",
     "express": "^4.18.1",
-    "https": "^1.0.0"
+    "request": "^2.88.2"
   }
 }
