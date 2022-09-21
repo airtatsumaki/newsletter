@@ -23,7 +23,7 @@ app.post("/", (req,res) => {
         status : "subscribed",
         merge_fields : {
           FNAME : req.body.firstName,
-          LNAME : req.body.lastName,
+          LNAME : req.body.lastName
         }
       }
     ]
@@ -38,12 +38,23 @@ app.post("/", (req,res) => {
   const request = https.request(url, options, (response) => {
     response.on("data", (data) => {
       console.log(JSON.parse(data));
+      console.log(response.statusCode);
+      if (response.statusCode == "200"){
+        res.sendFile(__dirname + "/success.html");
+      }
+      else{
+        res.sendFile(__dirname + "/failure.html");
+      }
     });
   });
 
   request.write(jsonData);
   request.end();
 
+});
+
+app.post("/failure", (req,res) => {
+  res.redirect("/");
 });
 
 app.listen(3000, () => console.log("Server is running!"));
