@@ -12,9 +12,9 @@ app.get("/", (req,res) => {
 });
 
 app.post("/", (req,res) => {
-  console.log(req.body.firstName);
-  console.log(req.body.lastName);
-  console.log(req.body.emailAdd);
+  // console.log(req.body.firstName);
+  // console.log(req.body.lastName);
+  // console.log(req.body.emailAdd);
 
   const data = {
     members : [
@@ -38,8 +38,8 @@ app.post("/", (req,res) => {
   }
   const request = https.request(url, options, (response) => {
     response.on("data", (data) => {
-      console.log(JSON.parse(data));
-      console.log(response.statusCode);
+      // console.log(JSON.parse(data));
+      // console.log(response.statusCode);
       if (response.statusCode == "200"){
         res.sendFile(__dirname + "/success.html");
       }
