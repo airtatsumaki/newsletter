@@ -3,7 +3,6 @@ const bodyParser = require("body-parser");
 const request = require("request");
 const https = require("https");
 const app = express();
-require('dotenv').config();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
@@ -12,9 +11,9 @@ app.get("/", (req,res) => {
 });
 
 app.post("/", (req,res) => {
-  // console.log(req.body.firstName);
-  // console.log(req.body.lastName);
-  // console.log(req.body.emailAdd);
+  console.log(req.body.firstName);
+  console.log(req.body.lastName);
+  console.log(req.body.emailAdd);
 
   const data = {
     members : [
@@ -30,7 +29,6 @@ app.post("/", (req,res) => {
     ]
   };
 
-<<<<<<< HEAD
   isSubscriber(req.body.emailAdd, (result) => {
     if (parseInt(result.exact_matches.total_items) > 0){
       res.sendFile(__dirname + "/subscriber.html");
@@ -41,23 +39,6 @@ app.post("/", (req,res) => {
       const options = {
         method: "POST",
         auth: "nazim:3cf1fbf244eb518c2c3487d5bc5e9915-us11"
-=======
-  const jsonData = JSON.stringify(data);
-  const url = "https://" + process.env.API_ID + ".api.mailchimp.com/3.0/lists/" + process.env.LIST_ID;
-  const options = {
-    method: "POST",
-    auth: "nazim:" + process.env.API_KEY
-  }
-  const request = https.request(url, options, (response) => {
-    response.on("data", (data) => {
-      // console.log(JSON.parse(data));
-      // console.log(response.statusCode);
-      if (response.statusCode == "200"){
-        res.sendFile(__dirname + "/success.html");
-      }
-      else{
-        res.sendFile(__dirname + "/failure.html");
->>>>>>> 4de6e2cf8af9917f3c9d701241cd65fd55270345
       }
       const request = https.request(url, options, (response) => {
         response.on("data", (data) => {
