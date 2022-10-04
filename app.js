@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const request = require("request");
 const https = require("https");
+require('dotenv').config();
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
@@ -35,10 +36,12 @@ app.post("/", (req,res) => {
     }
     else{
       const jsonData = JSON.stringify(data);
-      const url = "https://us11.api.mailchimp.com/3.0/lists/5e516d5aa7";
+      //const url = "https://us11.api.mailchimp.com/3.0/lists/5e516d5aa7";
+      const url = "https://" + process.env.API_ID + ".api.mailchimp.com/3.0/lists/" + process.env.LIST_ID
       const options = {
         method: "POST",
-        auth: "nazim:3cf1fbf244eb518c2c3487d5bc5e9915-us11"
+        //auth: "nazim:3cf1fbf244eb518c2c3487d5bc5e9915-us11"
+        auth: "nazim:" + process.env.API_KEY
       }
       const request = https.request(url, options, (response) => {
         response.on("data", (data) => {
@@ -56,71 +59,29 @@ app.post("/", (req,res) => {
       request.end();
     }
   });
-
-
-  // console.log("AFTER isSubscriber callback");
-  // console.log(isSubResult);
-  // if (isSubResult){
-    
-  // }
-  // if(false){ //isSubscriber(req.body.emailAdd)){
-  //   //res.sendFile(__dirname + "/subscriber.html");
-  // }
-  // else{
-  //   const jsonData = JSON.stringify(data);
-  //   const url = "https://us11.api.mailchimp.com/3.0/lists/5e516d5aa7";
-  //   const options = {
-  //     method: "POST",
-  //     auth: "nazim:3cf1fbf244eb518c2c3487d5bc5e9915-us11"
-  //   }
-  //   const request = https.request(url, options, (response) => {
-  //     response.on("data", (data) => {
-  //       //console.log(JSON.parse(data));
-  //       //console.log(response.statusCode);
-  //       if (response.statusCode == "200"){
-  //         res.sendFile(__dirname + "/success.html");
-  //       }
-  //       else{
-  //         res.sendFile(__dirname + "/failure.html");
-  //       }
-  //     });
-  //   });
-  
-  //   request.write(jsonData);
-  //   request.end();
-  // }
- 
 });
 
 app.post("/failure", (req,res) => {
   res.redirect("/");
 });
 
-app.listen(3000, () => console.log("Server is running!"));
-
+app.listen(3000, () => {
+  // console.log(process.env.API_KEY);
+  console.log("Server is running!");
+});
 
 const isSubscriber = (query,callBack) => {
-  const url = "https://us11.api.mailchimp.com/3.0/search-members?query=" + String(query);
+  //const url = "https://us11.api.mailchimp.com/3.0/search-members?query=" + String(query);
+  const url = "https://"+ process.env.API_ID + ".api.mailchimp.com/3.0/search-members?query=" + String(query);
   const options = {
-    auth: "nazim:3cf1fbf244eb518c2c3487d5bc5e9915-us11"
+    //auth: "nazim:3cf1fbf244eb518c2c3487d5bc5e9915-us11"
+    auth: "nazim:" + process.env.API_KEY
   }
   let body = "";
   //var myJSON = {};
   https.get(url, options, (response) => {
     response.on("data", (data) => {
       body += data;
-      // const resultJSON = JSON.parse(data);
-      // //console.log(resultJSON.exact_matches.total_items);
-      // if (resultJSON.exact_matches.total_items == '0'){
-      //   console.log("NOT SUBSCRIBER");
-      //   return false;
-      // }
-      // else{
-      //   console.log("SUBSCRIBER");
-      //   return true;
-      // }
-      //return data;
-      //console.log(result);
     })
     response.on('end', () => {
       let myJSONdata = JSON.parse(body);
